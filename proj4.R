@@ -1,4 +1,8 @@
+# XiaolinYan s2326461
+#
+#
 
+# Everyone has contributed 1/3
 newt <- function(theta,func,grad,hess=NULL,...,
                  tol=1e-8, fscale=1,maxit=100,max.half=20,eps=1e-6){
 # write a newt function, using newton methods to get the minimization of function

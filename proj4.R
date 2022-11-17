@@ -70,13 +70,13 @@ newt <- function(theta,func,grad,hess=NULL,...,
       return(list(f=f0[1], theta=theta, iter=iter, g=gradient, Hi=Hi))
     } else { # if not converged
       catch.iter <- 0
-      while(inherits(try(H.chol <- chol(H), silent = TRUE), "try-error") == TRUE) { 
+      while(inherits(try(cholesky<- chol(H), silent = TRUE), "try-error") == TRUE) { 
        #if try error, hessian matrix is not positive definite, we should make it positive definite
         H <- H + diag(abs(max(H))*10^catch.iter*tol, nrow=nrow(H), ncol=ncol(H))
         catch.iter <- catch.iter + 1
       }
       # newton step, we need to calculate forward step to optimize our function
-      Delta <- backsolve(H.chol, forwardsolve(t(H.chol), -gradient))
+      Delta <- backsolve(cholesky, forwardsolve(t(cholesky), -gradient))
      
       # judge if the step fails to reduce objective function after trying max.half step halving
        half.iter = 0# half.iter initialised

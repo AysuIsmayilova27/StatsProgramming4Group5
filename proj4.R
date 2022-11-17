@@ -49,15 +49,14 @@ newt <- function(theta,func,grad,hess=NULL,...,
   
   #  If the objective or its derivatives are not finite at the initial theta, stop
   if (is.finite(f0)==FALSE | any(is.finite(gradient)==FALSE)| any(is.finite(H)==FALSE)) {
-    stop("The objective or its derivatives are not finite at
-         your initial estimate of theta.")
+    stop("The objective or its derivatives are not finite at initial theta.")
   }
   
   # optimization begins
   iter = 0 # initialize iteration
   while (iter < maxit) {
     if (max(abs(gradient)) < (abs(f0)+fscale)*tol){# if converged
-      cat("Converged",'\n')
+      cat("Converged",'fill=TRUE)
       # check if hessian matrix is positive definte at convergence,we cannot get cholesky decomposition if hessian is not positive definite
       if (inherits(try(chol(H), silent = TRUE),"try-error")){ # if try error, hessian matrix is not positive definite, give warning
         warning("The Hessian is not positive definite at convergence")
@@ -88,8 +87,7 @@ newt <- function(theta,func,grad,hess=NULL,...,
           Delta <- Delta / 2
           half.iter <- half.iter + 1# updating half.iter
         } else {# If we reach the limit iteration times
-          stop(paste("The update step failed to reduce the objective
-                  after ", as.character(max.half), " halvings"))
+          stop(cat("The update step failed to reduce the objective after ", as.character(max.half), " halvings"))
         }
       }
       
@@ -102,11 +100,10 @@ newt <- function(theta,func,grad,hess=NULL,...,
   }
   
   if (max(abs(gradient)) < (abs(f0)+fscale)*tol){# If gradient is very close to the limit
-    cat("Converged")# It converged
+    cat("Converged",fill=TRUE)# It converged
     return(list(f= f0, theta =theta, iter =iter, g =gradient, Hi= Hi))# And we return the list 
   } else {
-    warning(paste("Newton optimizer failed to converge after
-                  maxit = ", as.character(maxit), " iterations"))# In case of not convergence, we give a warning
+    warning(cat("Newton optimizer failed to converge after maxit = ", as.character(maxit), " iterations"))# In case of not convergence, we give a warning
   }
   
   

@@ -32,7 +32,7 @@ newt <- function(theta,func,grad,hess=NULL,...,
     hess <- function(theta) {
       eps <- 1e-8 # finite difference intervals
       gradient <- grad(theta)
-      fd.f <- matrix(0L, nrow = length(theta), ncol = length(theta)) # initialize hessian matrix
+      fd.f <- matrix(0, nrow = length(theta), ncol = length(theta)) # initialize hessian matrix
       for (i in 1:length(theta)){ 
         th1 <- theta; th1[i] <- th1[i]+eps
         f.hi <- grad(th1)

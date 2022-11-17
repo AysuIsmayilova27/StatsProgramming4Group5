@@ -1,7 +1,5 @@
-# XiaolinYan s2326461; Xiaoxian Zhang s2287323
-#
-#
-
+# XiaolinYan s2326461; Xiaoxian Zhang s2287323, Aysu Ismayilova s2295782
+# https://github.com/AysuIsmayilova27/StatsProgramming4Group5/edit/main/proj4.R
 # Everyone has contributed 1/3
 newt <- function(theta,func,grad,hess=NULL,...,
                  tol=1e-8, fscale=1,maxit=100,max.half=20,eps=1e-6){

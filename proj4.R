@@ -56,7 +56,7 @@ newt <- function(theta,func,grad,hess=NULL,...,
   iter = 0 # initialize iteration
   while (iter < maxit) {
     if (max(abs(gradient)) < (abs(f0)+fscale)*tol){# if converged
-      cat("Converged",'fill=TRUE)
+      cat("Converged",fill=TRUE)
       # check if hessian matrix is positive definte at convergence,we cannot get cholesky decomposition if hessian is not positive definite
       if (inherits(try(chol(H), silent = TRUE),"try-error")){ # if try error, hessian matrix is not positive definite, give warning
         warning("The Hessian is not positive definite at convergence")

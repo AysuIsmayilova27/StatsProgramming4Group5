@@ -103,7 +103,7 @@ newt <- function(theta,func,grad,hess=NULL,...,
     cat("Converged",fill=TRUE)# It converged
     return(list(f= f0, theta =theta, iter =iter, g =gradient, Hi= Hi))# And we return the list 
   } else {
-    warning(cat("Newton optimizer failed to converge after maxit = ", as.character(maxit), " iterations"))# In case of not convergence, we give a warning
+    warning(paste("Newton optimizer failed to converge after maxit = ", as.character(maxit), " iterations"))# In case of not convergence, we give a warning
   }
   
   

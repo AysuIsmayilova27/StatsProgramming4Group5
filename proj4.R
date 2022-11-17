@@ -1,6 +1,24 @@
 
 newt <- function(theta,func,grad,hess=NULL,...,
                  tol=1e-8, fscale=1,maxit=100,max.half=20,eps=1e-6){
+# write a newt function, using newton methods to get the minimization of function
+# input:
+# theta - a vector of initial values for the optimization parameters
+# func - the objective function to minimize
+# grad - the gradient function
+# hess - the hessian matrix function
+# tol - the convergence tolerance
+# facale - a rough estimate of the magnitude of func near the optimum
+# maxit - a vector of initial values for the optimization parameters
+# max.half - the maximum number of times a step should be halved
+# eps - the finite difference intervals to use to generate an approximate hessian
+# output:
+# f - the value of the objective function at the minimum
+# theta - the value of the parameters at the minimum
+# iter - the number of iterations taken to reach the minimum
+# g - the gradient vector at the minimum
+# Hi - the inverse of the Hessian matrix at the minimum 
+
   
   f0 <- func(theta,...) # the initial value of our objective function
   gradient <- grad(theta,...) # the initial gradient of intial objective function

@@ -63,7 +63,7 @@ newt <- function(theta,func,grad,hess=NULL,...,
      
       Hi <- ginv(H) # inverse hessian matrix
       # return a list contain the minimum f,the value of theta, iteration, the gradient and inverse of the Hessian matrix at the minimum
-      return(list(f.min=f0[1], theta=theta, iter=iter, g=gradient, Hi=Hi))
+      return(list(f=f0[1], theta=theta, iter=iter, g=gradient, Hi=Hi))
     } else { # if not converged
       catch.iter <- 0
       while(inherits(try(H.chol <- chol(H), silent = TRUE), "try-error") == TRUE) { 
@@ -82,9 +82,9 @@ newt <- function(theta,func,grad,hess=NULL,...,
              any(is.infinite(grad(theta + Delta))) |
              any(is.infinite(hess(theta + Delta)))) {# Checking if objective function, gradient and hessian matrix are finite
         
-        if (half.iter < max.half) {# If we didn't reach the limit iteration times
+        if (half.iter < max.half) {# If we didn't reach the limit iteration 
           Delta <- Delta / 2
-          half.iter <- half.iter + 1# limited iteration time +1
+          half.iter <- half.iter + 1# updating half.iter
         } else {# If we reach the limit iteration times
           stop(paste("The update step failed to reduce the objective
                   after ", as.character(max.half), " halvings"))
@@ -95,13 +95,13 @@ newt <- function(theta,func,grad,hess=NULL,...,
       f0 <- func(theta)#  Updating objective function 
       gradient <- grad(theta)#  Updating gradient
       H <- hess(theta,...)#  Updating hessian matrix
-      iter <- iter + 1 # iteration time +1
+      iter <- iter + 1 # updating iter
     }
   }
   
   if (max(abs(gradient)) < (abs(f0)+fscale)*tol){# If gradient is very close to the limit
     cat("Converged")# It converged
-    return(list(f0, theta, iter, gradient, Hi))# And we return the list 
+    return(list(f= f0, theta =theta, iter =iter, g =gradient, Hi= Hi))# And we return the list 
   } else {
     warning(paste("Newton optimizer failed to converge after
                   maxit = ", as.character(maxit), " iterations"))# In case of not convergence, we give a warning

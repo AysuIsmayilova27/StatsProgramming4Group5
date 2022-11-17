@@ -87,7 +87,7 @@ newt <- function(theta,func,grad,hess=NULL,...,
           Delta <- Delta / 2
           half.iter <- half.iter + 1# updating half.iter
         } else {# If we reach the limit iteration times
-          stop(cat("The update step failed to reduce the objective after ", as.character(max.half), " halvings"))
+          stop(paste("The update step failed to reduce the objective after ", as.character(max.half), " halvings"))
         }
       }
       

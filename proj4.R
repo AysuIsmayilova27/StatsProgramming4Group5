@@ -75,46 +75,36 @@ newt <- function(theta,func,grad,hess=NULL,...,
       Delta <- backsolve(H.chol, forwardsolve(t(H.chol), -gradient))
      
       # judge if the step fails to reduce objective function after trying max.half step halving
-      half.iter = 0 # initialize interation
-     
+       half.iter = 0# half.iter initialised
+      
       while ((func(theta + Delta)[1] > f0[1]) |
              is.infinite(func(theta + Delta)) |
              any(is.infinite(grad(theta + Delta))) |
-             any(is.infinite(hess(theta + Delta)))) {
-        if (half.iter < max.half) {
+             any(is.infinite(hess(theta + Delta)))) {# Checking if objective function, gradient and hessian matrix are finite
+        
+        if (half.iter < max.half) {# If we didn't reach the limit iteration times
           Delta <- Delta / 2
-          half.iter <- half.iter + 1
-        } else {
+          half.iter <- half.iter + 1# limited iteration time +1
+        } else {# If we reach the limit iteration times
           stop(paste("The update step failed to reduce the objective
                   after ", as.character(max.half), " halvings"))
         }
       }
-
-      theta <- theta + Delta
       
-     
-      f0 <- func(theta)
-      gradient <- grad(theta)
-      
-      
-      if (any(is.null(hess(theta,...)))) {
-       
-        H <- fd.f
-      } else {
-        H <- hess(theta,...)
-      }
-      
-
-      iter <- iter + 1
+      theta <- theta + Delta# Updating theta
+      f0 <- func(theta)#  Updating objective function 
+      gradient <- grad(theta)#  Updating gradient
+      H <- hess(theta,...)#  Updating hessian matrix
+      iter <- iter + 1 # iteration time +1
     }
   }
- 
-  if (max(abs(gradient)) < (abs(f0)+fscale)*tol){
-    cat("Converged")
-    return(list(f0, theta, iter, gradient, Hi))
+  
+  if (max(abs(gradient)) < (abs(f0)+fscale)*tol){# If gradient is very close to the limit
+    cat("Converged")# It converged
+    return(list(f0, theta, iter, gradient, Hi))# And we return the list 
   } else {
-    warning(paste("Newton optimizer failed to converage after
-                  maxit = ", as.character(maxit), " iterations"))
+    warning(paste("Newton optimizer failed to converge after
+                  maxit = ", as.character(maxit), " iterations"))# In case of not convergence, we give a warning
   }
   
   
